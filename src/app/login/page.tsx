@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,18 +12,47 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "@/graphql/mutations/login";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
 
-export default function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export default function LoginForm({ className }: React.ComponentProps<"div">) {
+  const [loginUser] = useMutation(LOGIN_USER);
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    console.log(email);
+    console.log(password);
+    try {
+      const response = await loginUser({
+        variables: {
+          email,
+          password,
+        },
+      });
+      const token = response.data.loginUser.accessToken;
+      setAccessToken(token);
+      localStorage.setItem("accessToken", token);
+
+      router.push("/"); // 로그인 성공 시 이동
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      // 에러 핸들링
+    }
+  };
+
   return (
     <div
       className={cn(
         "relative flex flex-col gap-6 items-center justify-center h-screen",
         className
       )}
-      {...props}
     >
       <div className="absolute inset-0 bg-[url('/images/authBg.jpeg')] bg-cover bg-center opacity-70" />
       <div className="relative z-10">
@@ -33,12 +64,13 @@ export default function LoginForm({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-3">
                   <Label htmlFor="email">이메일</Label>
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     placeholder="m@example.com"
                     required
@@ -48,7 +80,12 @@ export default function LoginForm({
                   <div className="flex items-center">
                     <Label htmlFor="password">비밀번호</Label>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                  />
                 </div>
                 <div className="flex flex-col gap-3">
                   <Button type="submit" className="w-full">
