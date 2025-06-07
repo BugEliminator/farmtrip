@@ -43,7 +43,7 @@ export default function LoginForm({ className }: React.ComponentProps<"div">) {
       router.push("/"); // 로그인 성공 시 이동
     } catch (error) {
       console.error("로그인 실패:", error);
-      // 에러 핸들링
+      alert("로그인 실패했습니다!");
     }
   };
 
