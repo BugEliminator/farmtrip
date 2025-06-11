@@ -13,7 +13,7 @@ import { FETCH_USER_LOGGED_IN } from "@/graphql/queries/fetchUserLoggedIn";
 
 export default function Header() {
   const [logoutUser] = useMutation(LOGOUT_USER);
-  // const { data, loading } = useQuery(FETCH_USER_LOGGED_IN);  추후 사용 예정
+  const { data, loading } = useQuery(FETCH_USER_LOGGED_IN);
   const clearAccessToken = useAuthStore((state) => state.clearAccessToken);
   const router = useRouter();
 
@@ -36,6 +36,8 @@ export default function Header() {
     }
   };
 
+  if (loading) return <div>로딩 중...</div>;
+
   return (
     <header className="flex items-center justify-between px-12 w-full h-20 shadow-sm">
       {/* 왼쪽: 로고 + 메뉴 */}
@@ -57,6 +59,7 @@ export default function Header() {
           <Link href="/experiences">Experiences</Link>
           <Link href="/communityBoard">Community Board</Link>
           <Link href="/myPage">My Page</Link>
+          <div>Hi, {data?.fetchUserLoggedIn.name} 👋</div>
         </nav>
       </div>
 
