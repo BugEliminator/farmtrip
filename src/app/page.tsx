@@ -32,7 +32,7 @@ export default function Home() {
   });
 
   const boards = boardData?.fetchBoards?.slice(0, 5);
-  console.log(boards);
+  console.log(`자유커뮤니티 ${boards}`);
 
   return (
     <div className="max-w-[1400px] mx-auto px-8 py-16">

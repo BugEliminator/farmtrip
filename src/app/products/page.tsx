@@ -5,14 +5,16 @@ import { FETCH_TRAVEL_PRODUCTS } from "@/graphql/queries/fetchTravelproducts";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { Search } from "lucide-react";
+import { Pencil, Search } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const PAGE_SIZE = 10;
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const loader = useRef<HTMLDivElement | null>(null);
@@ -21,21 +23,21 @@ export default function ProductsPage() {
   const { loading, fetchMore, refetch, data } = useQuery(
     FETCH_TRAVEL_PRODUCTS,
     {
-      variables: { page: 1, search: "" },
+      variables: { page: 1, searchQuery: "" },
       notifyOnNetworkStatusChange: true,
     }
   );
 
   // 최초 데이터 및 검색어 변경 시
   useEffect(() => {
-    refetch({ page: 1, search }).then((res: any) => {
+    refetch({ page: 1, searchQuery }).then((res: any) => {
       const items = res.data.fetchTravelproducts || [];
       setProducts(items);
       setPage(1);
       setHasMore(items.length === PAGE_SIZE);
     });
     // eslint-disable-next-line
-  }, [search]);
+  }, [searchQuery]);
 
   // 무한 스크롤 Intersection Observer 개선
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function ProductsPage() {
         if (target.isIntersecting && !loading && !isFetchingMore && hasMore) {
           setIsFetchingMore(true);
           fetchMore({
-            variables: { page: page + 1, search },
+            variables: { page: page + 1, searchQuery },
           })
             .then((res: any) => {
               const newItems = res.data.fetchTravelproducts || [];
@@ -73,7 +75,7 @@ export default function ProductsPage() {
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [loader, hasMore, loading, isFetchingMore, page, search, fetchMore]);
+  }, [loader, hasMore, loading, isFetchingMore, page, searchQuery, fetchMore]);
 
   // 가격 원화 포맷
   const formatPrice = (price: number) =>
@@ -81,23 +83,32 @@ export default function ProductsPage() {
 
   // 검색 입력 핸들러
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    setSearchQuery(e.target.value);
   }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">Products</h1>
-      {/* 커스텀 서치바 */}
-      <div className="flex items-center mb-8 w-full max-w-xl bg-[#E8EDF2] rounded-2xl px-4 py-1 gap-2 shadow-sm">
-        <Search className="text-blue-400 mr-2 w-5 h-5" stroke="#7B93B1" />
-        <Input
-          className="bg-transparent border-none shadow-none focus:ring-0 text-base placeholder:text-[#7B93B1]"
-          placeholder="Search for Products"
-          value={search}
-          onChange={handleSearch}
-          style={{ boxShadow: "none" }}
-        />
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center w-full max-w-lg bg-[#E8EDF2] rounded-2xl px-4 py-1 gap-2 shadow-sm">
+          <Search className="text-blue-400 mr-2 w-5 h-5" stroke="#7B93B1" />
+          <Input
+            className="bg-transparent border-none shadow-none focus:ring-0 text-base placeholder:text-[#7B93B1]"
+            placeholder="Search for Community Board"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        </div>
+
+        {/* Write Button */}
+        <Link href="products/write">
+          <Button className="ml-4 h-[42px] px-4 flex items-center gap-2">
+            <Pencil className="w-4 h-4" />
+            글쓰기
+          </Button>
+        </Link>
       </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6">
         {products.map((product, index) => (
           <div

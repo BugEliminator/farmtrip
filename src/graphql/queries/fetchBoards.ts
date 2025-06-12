@@ -16,6 +16,15 @@ export const FETCH_BOARDS = gql`
       _id
       title
       images
+      writer
+      createdAt
+      likeCount
+      dislikeCount
+      user {
+        name
+      }
     }
   }
 `;
+
+// writer user createdAt
