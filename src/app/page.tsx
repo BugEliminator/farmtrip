@@ -61,7 +61,7 @@ export default function Home() {
                       ? `https://storage.googleapis.com/${product.images[0]}`
                       : "/images/defaultImage.png"
                   }
-                  alt={product.title}
+                  alt={product.title ?? "상품 이미지"}
                   fill
                   className="object-cover"
                 />

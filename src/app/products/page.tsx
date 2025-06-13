@@ -8,36 +8,38 @@ import Image from "next/image";
 import { Pencil, Search } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const PAGE_SIZE = 10;
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const loader = useRef<HTMLDivElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
+  const router = useRouter();
 
   const { loading, fetchMore, refetch, data } = useQuery(
     FETCH_TRAVEL_PRODUCTS,
     {
-      variables: { page: 1, searchQuery: "" },
+      variables: { page: 1, search: "" },
       notifyOnNetworkStatusChange: true,
     }
   );
 
   // 최초 데이터 및 검색어 변경 시
   useEffect(() => {
-    refetch({ page: 1, searchQuery }).then((res: any) => {
+    refetch({ page: 1, search }).then((res: any) => {
       const items = res.data.fetchTravelproducts || [];
       setProducts(items);
       setPage(1);
       setHasMore(items.length === PAGE_SIZE);
     });
     // eslint-disable-next-line
-  }, [searchQuery]);
+  }, [search]);
 
   // 무한 스크롤 Intersection Observer 개선
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function ProductsPage() {
         if (target.isIntersecting && !loading && !isFetchingMore && hasMore) {
           setIsFetchingMore(true);
           fetchMore({
-            variables: { page: page + 1, searchQuery },
+            variables: { page: page + 1, search },
           })
             .then((res: any) => {
               const newItems = res.data.fetchTravelproducts || [];
@@ -75,7 +77,7 @@ export default function ProductsPage() {
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [loader, hasMore, loading, isFetchingMore, page, searchQuery, fetchMore]);
+  }, [loader, hasMore, loading, isFetchingMore, page, search, fetchMore]);
 
   // 가격 원화 포맷
   const formatPrice = (price: number) =>
@@ -83,8 +85,12 @@ export default function ProductsPage() {
 
   // 검색 입력 핸들러
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    setSearch(e.target.value);
   }, []);
+
+  const handleClick = (id: string) => {
+    router.push(`/products/${id}`);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -95,7 +101,7 @@ export default function ProductsPage() {
           <Input
             className="bg-transparent border-none shadow-none focus:ring-0 text-base placeholder:text-[#7B93B1]"
             placeholder="Search for Community Board"
-            value={searchQuery}
+            value={search}
             onChange={handleSearch}
           />
         </div>
@@ -113,7 +119,8 @@ export default function ProductsPage() {
         {products.map((product, index) => (
           <div
             key={`${product._id}-${index}`}
-            className="flex flex-col items-center"
+            onClick={() => handleClick(product._id)}
+            className="cursor-pointer flex flex-col items-center"
           >
             <Card className="w-full h-52 overflow-hidden relative transition-transform duration-300 ease-in-out hover:scale-105 bg-gray-100">
               <Image
