@@ -1,8 +1,9 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 import { setContext } from "@apollo/client/link/context";
 import { useAuthStore } from "@/store/useAuthStore";
 
-const httpLink = createHttpLink({
+const uploadLink = createUploadLink({
   uri: "https://main-practice.codebootcamp.co.kr/graphql",
   credentials: "include",
 });
@@ -13,13 +14,12 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       Authorization: token ? `Bearer ${token}` : "",
-      "Content-Type": "application/json",
     },
   };
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
 });
 
