@@ -118,8 +118,7 @@ export default function Home() {
           <p>© 2025 FarmTrip. All rights reserved.</p>
           <p>
             Built with
-            <span className="font-medium">Next.js, Supabase, Apollo</span> by
-            찬우
+            <span className="font-medium"> Next.js, Apollo</span> by 찬우
           </p>
         </div>
       </footer>

@@ -35,7 +35,7 @@ export default function Header() {
       console.error("로그아웃 실패:", error);
     }
   };
-
+  console.log(data);
   if (loading) return <div>로딩 중...</div>;
 
   return (
