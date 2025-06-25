@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useMutation } from "@apollo/client";
-import { CREATE_USER } from "@/graphql/mutations/signup";
+import { CREATE_USER } from "@/graphql/mutations/(authentication)/signup";
 import { useRouter } from "next/navigation";
 
 export default function SignupForm({ className }: React.ComponentProps<"div">) {

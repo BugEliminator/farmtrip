@@ -1,8 +1,8 @@
 "use client";
-
+// any 타입 추후 수정 예정
 import { Card } from "@/components/ui/card";
-import { FETCH_BOARDS } from "@/graphql/queries/fetchBoards";
-import { FETCH_TRAVEL_PRODUCTS } from "@/graphql/queries/fetchTravelproducts";
+import { FETCH_BOARDS } from "@/graphql/queries/(boards)/fetchBoards";
+import { FETCH_TRAVEL_PRODUCTS } from "@/graphql/queries/(product)/fetchTravelproducts";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 
@@ -52,7 +52,7 @@ export default function Home() {
       <section className="mt-20">
         <h2 className="text-3xl font-semibold mb-12">Featured Products</h2>
         <div className="grid grid-cols-5 gap-6">
-          {products?.map((product) => (
+          {products?.map((product: any) => (
             <div key={product._id} className="flex flex-col items-start">
               <Card className="w-full h-52 overflow-hidden relative transition-transform duration-300 ease-in-out hover:scale-105 bg-gray-100 ">
                 <Image
@@ -91,7 +91,7 @@ export default function Home() {
       <section className="mt-24">
         <h2 className="text-3xl font-semibold mb-12">Community Board</h2>
         <div className="grid grid-cols-5 gap-6">
-          {boards?.map((board) => (
+          {boards?.map((board: any) => (
             <div key={board._id} className="flex flex-col items-start">
               <Card className="w-full h-48 overflow-hidden relative transition-transform duration-300 ease-in-out hover:scale-105 bg-gray-100">
                 <Image

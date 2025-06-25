@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "@apollo/client";
-import { FETCH_TRAVEL_PRODUCT } from "@/graphql/queries/fetchTravelproduct";
-import { FETCH_USER_LOGGED_IN } from "@/graphql/queries/fetchUserLoggedIn";
-import { DELETE_TRAVEL_PRODUCT } from "@/graphql/mutations/deleteTravelproduct";
+import { FETCH_TRAVEL_PRODUCT } from "@/graphql/queries/(product)/fetchTravelproduct";
+import { FETCH_USER_LOGGED_IN } from "@/graphql/queries/(authentication)/fetchUserLoggedIn";
+import { DELETE_TRAVEL_PRODUCT } from "@/graphql/mutations/(product)/deleteTravelproduct";
 import {
   Carousel,
   CarouselContent,

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "@/graphql/mutations/login";
+import { LOGIN_USER } from "@/graphql/mutations/(authentication)/login";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
 

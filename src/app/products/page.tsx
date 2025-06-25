@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useQuery } from "@apollo/client";
-import { FETCH_TRAVEL_PRODUCTS } from "@/graphql/queries/fetchTravelproducts";
+import { FETCH_TRAVEL_PRODUCTS } from "@/graphql/queries/(product)/fetchTravelproducts";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";

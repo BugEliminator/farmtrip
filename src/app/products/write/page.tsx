@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@apollo/client";
 import { CircleX, ImagePlus } from "lucide-react";
 import { UPLOAD_FILE } from "@/graphql/mutations/uploadFile";
-import { CREATE_TRAVEL_PRODUCT } from "@/graphql/mutations/createTravelproduct";
+import { CREATE_TRAVEL_PRODUCT } from "@/graphql/mutations/(product)/createTravelproduct";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";

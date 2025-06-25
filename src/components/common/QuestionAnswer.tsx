@@ -1,7 +1,7 @@
 // 나중에 자유, 상품, 체험 모두 q&a 들어갈 예정
 
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export default function QuestionAnswer() {
   const mockQnA: any[] = [];

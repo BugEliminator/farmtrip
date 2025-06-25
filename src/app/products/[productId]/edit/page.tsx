@@ -2,8 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useQuery, useMutation } from "@apollo/client";
-import { FETCH_TRAVEL_PRODUCT } from "@/graphql/queries/fetchTravelproduct";
-import { UPDATE_TRAVEL_PRODUCT } from "@/graphql/mutations/updateTravelproduct";
+import { FETCH_TRAVEL_PRODUCT } from "@/graphql/queries/(product)/fetchTravelproduct";
+import { UPDATE_TRAVEL_PRODUCT } from "@/graphql/mutations/(product)/updateTravelproduct";
 import { UPLOAD_FILE } from "@/graphql/mutations/uploadFile";
 import { CircleX, ImagePlus } from "lucide-react";
 import Image from "next/image";

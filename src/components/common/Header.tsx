@@ -5,11 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useMutation, useQuery } from "@apollo/client";
 import { useAuthStore } from "@/store/useAuthStore";
-import { LOGOUT_USER } from "@/graphql/mutations/logout";
-import { FETCH_USER_LOGGED_IN } from "@/graphql/queries/fetchUserLoggedIn";
+import { LOGOUT_USER } from "@/graphql/mutations/(authentication)/logout";
+import { FETCH_USER_LOGGED_IN } from "@/graphql/queries/(authentication)/fetchUserLoggedIn";
 
 export default function Header() {
   const [logoutUser] = useMutation(LOGOUT_USER);
