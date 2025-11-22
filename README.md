@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FarmTrip
 
-## Getting Started
+농장 체험 예약과 농산물 직거래를 한 곳에서 제공하는 통합 플랫폼입니다.
 
-First, run the development server:
+## 프로젝트 소개
+
+FarmTrip은 도시 거주자들이 신뢰할 수 있는 농산물을 직거래로 구매하고, 자녀 교육 및 힐링을 위한 다양한 농장 체험 정보를 한 곳에서 찾고 예약할 수 있도록 돕는 플랫폼입니다.
+
+### 주요 기능
+
+1. **자유게시판**
+
+   - 게시판 메인 페이지
+   - 게시판 등록 & 수정 페이지
+   - 게시판 상세 페이지
+
+2. **로그인/로그아웃**
+
+3. **농장 체험**
+
+   - 농장 체험 메인 페이지
+   - 농장 등록 & 수정 페이지
+   - 농장 상세 페이지
+
+4. **마이페이지**
+
+   - 거래내역 & 북마크
+   - 포인트 사용 내역
+   - 비밀번호 변경
+
+5. **농산품**
+   - 농산품 메인 페이지
+   - 농산품 등록 & 수정 페이지
+   - 농산품 상세 페이지
+
+## 기술 스택
+
+- **프론트엔드**: Next.js 16, React 19
+- **백엔드**: GraphQL, Apollo Client
+- **상태관리**: Zustand
+- **스타일링**: Tailwind CSS, Material-UI (MUI)
+- **테스트**: Jest
+
+## 시작하기
+
+### 필수 요구사항
+
+- Node.js 18.x 이상
+- Yarn (패키지 매니저)
+
+### 설치
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 개발 서버 실행
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 결과를 확인하세요.
 
-## Learn More
+### 빌드
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+yarn build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 프로덕션 실행
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+yarn start
+```
 
-## Deploy on Vercel
+## Git Flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ⚙️ 핵심 브랜치
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **main**: 배포용. 직접 커밋 금지. `dev` 또는 `hotfix/*`만 병합.
+- **dev**: 개발 통합 브랜치. 개발 완료 후 `main`으로 병합.
+
+---
+
+### 🚀 기능 브랜치 (dev에서 분기 → dev로 병합)
+
+- **feat/**: 새 기능 개발
+- **refactor/**: 기능 변화 없는 리팩토링
+- **style/**: 스타일/UI 수정 (로직 수정 없음)
+- **docs/**: 문서 작업
+- **chore/**: 설정/환경 작업
+
+---
+
+### 🩹 유지보수 브랜치
+
+- **fix/**: 일반 버그 수정 (dev에서 분기 → dev로)
+- **hotfix/**: 배포 후 치명적 버그 수정 (main에서 분기 → main + dev로 병합)
