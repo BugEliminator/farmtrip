@@ -78,22 +78,57 @@ yarn start
 
 ### ⚙️ 핵심 브랜치
 
-- **main**: 배포용. 직접 커밋 금지. `dev` 또는 `hotfix/*`만 병합.
-- **dev**: 개발 통합 브랜치. 개발 완료 후 `main`으로 병합.
+- **main**: 배포용. 직접 커밋 금지. 작업 브랜치 또는 `hotfix/*`만 병합.
 
 ---
 
-### 🚀 기능 브랜치 (dev에서 분기 → dev로 병합)
+### 🚀 작업 브랜치 (main에서 분기 → main으로 PR)
 
 - **feat/**: 새 기능 개발
 - **refactor/**: 기능 변화 없는 리팩토링
 - **style/**: 스타일/UI 수정 (로직 수정 없음)
 - **docs/**: 문서 작업
 - **chore/**: 설정/환경 작업
+- **fix/**: 일반 버그 수정
 
 ---
 
-### 🩹 유지보수 브랜치
+### 🩹 긴급 수정 브랜치
 
-- **fix/**: 일반 버그 수정 (dev에서 분기 → dev로)
-- **hotfix/**: 배포 후 치명적 버그 수정 (main에서 분기 → main + dev로 병합)
+- **hotfix/**: 배포 후 치명적 버그 수정 (main에서 분기 → main으로 직접 병합)
+
+## CI/CD
+
+GitHub Actions를 사용하여 자동화된 CI/CD 파이프라인을 구축했습니다.
+
+### CI (Continuous Integration)
+
+`main` 브랜치로 PR을 생성하거나 `main`에 직접 push하면 자동으로 실행됩니다:
+
+1. **Lint & Type Check**: ESLint와 TypeScript 타입 체크
+2. **Build**: 프로덕션 빌드 테스트
+3. **Test**: Jest 테스트 실행 (테스트가 없어도 실패하지 않음)
+
+워크플로우 파일: `.github/workflows/ci.yml`
+
+### 사용 가능한 스크립트
+
+```bash
+# 린트 실행
+yarn lint
+
+# 린트 자동 수정
+yarn lint:fix
+
+# TypeScript 타입 체크
+yarn type-check
+
+# 테스트 실행
+yarn test
+
+# 테스트 감시 모드
+yarn test:watch
+
+# 테스트 커버리지
+yarn test:coverage
+```
